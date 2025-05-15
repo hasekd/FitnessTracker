@@ -1,0 +1,19 @@
+﻿<?xml version = "1.0" encoding = "UTF-8" ?>
+<Application xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:FitnessTracker"
+             x:Class="FitnessTracker.App">
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Resources/Styles/Colors.xaml" />
+                <ResourceDictionary Source="Resources/Styles/Styles.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+
+            <Color x:Key="AppBackgroundColor">#f5f3fe</Color>
+            <Color x:Key="InputPlaceholder">#6E6E73</Color>
+            <Color x:Key="IconColor">#4835c5</Color>
+           
+       </ResourceDictionary>
+    </Application.Resources>
+</Application>

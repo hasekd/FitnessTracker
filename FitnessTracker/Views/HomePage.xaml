@@ -1,0 +1,148 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             x:Class="FitnessTracker.Views.HomePage"
+             x:Name="PageRef"
+             BackgroundColor="{DynamicResource AppBackgroundColor}">
+
+    <VerticalStackLayout Padding="20">
+        <Label Text="Latest Workout"
+               FontSize="20"
+               FontAttributes="Bold"
+               Margin="0,20,0,10" />
+        <Border StrokeShape="RoundRectangle 10">
+            <VerticalStackLayout Spacing="15"
+                                 Padding="20"
+                                 BackgroundColor="White">
+                <HorizontalStackLayout Spacing="15"
+                                       Margin="0,0,0,5">
+                    <Image Source="barbell.svg"
+                           WidthRequest="40"
+                           HeightRequest="40">
+                        <Image.Behaviors>
+                            <toolkit:IconTintColorBehavior TintColor="#4835c5" />
+                        </Image.Behaviors>
+                    </Image>
+                    <Label Text="{Binding LatestWorkout.Exercise}"
+                           FontAttributes="Bold"
+                           FontSize="26"
+                           VerticalTextAlignment="Center" />
+                </HorizontalStackLayout>
+
+                <Grid ColumnDefinitions="Auto,*,*"
+                      ColumnSpacing="15">
+                    <Image Source="repeat.svg"
+                           WidthRequest="30"
+                           HeightRequest="30"
+                           Grid.Column="0">
+                        <Image.Behaviors>
+                            <toolkit:IconTintColorBehavior TintColor="#4835c5" />
+                        </Image.Behaviors>
+                    </Image>
+                    <VerticalStackLayout Grid.Column="1">
+                        <Label Text="Reps"
+                               FontAttributes="Bold"
+                               FontSize="19" />
+                        <Label Text="{Binding LatestWorkout.Reps}"
+                               FontSize="19"
+                               FontAttributes="Bold"
+                               VerticalTextAlignment="Center" />
+                    </VerticalStackLayout>
+                    <VerticalStackLayout Grid.Column="2">
+                        <Label Text="Sets"
+                               FontAttributes="Bold"
+                               FontSize="19" />
+                        <Label Text="{Binding LatestWorkout.Sets}"
+                               FontSize="19"
+                               FontAttributes="Bold"
+                               VerticalTextAlignment="Center" />
+                    </VerticalStackLayout>
+                </Grid>
+
+                <HorizontalStackLayout Spacing="8">
+                    <Image Source="calendar.svg"
+                           WidthRequest="30"
+                           HeightRequest="30">
+                        <Image.Behaviors>
+                            <toolkit:IconTintColorBehavior TintColor="#4835c5" />
+                        </Image.Behaviors>
+                    </Image>
+                    <Label Text="{Binding LatestWorkout.Date, StringFormat='{0:dd.MM.yyyy}'}"
+                           FontSize="19"
+                           FontAttributes="Bold"
+                           VerticalTextAlignment="Center" />
+                </HorizontalStackLayout>
+
+            </VerticalStackLayout>
+        </Border>
+
+        <Label Text="Latest Cardio"
+               FontSize="20"
+               FontAttributes="Bold"
+               Margin="0,25,0,10" />
+        <Border StrokeShape="RoundRectangle 10">
+            <VerticalStackLayout Spacing="15"
+                                 Padding="20"
+                                 BackgroundColor="White">
+                <HorizontalStackLayout Spacing="15"
+                                       Margin="0,0,0,5">
+                    <Image Source="pin.svg"
+                           WidthRequest="40"
+                           HeightRequest="40">
+                        <Image.Behaviors>
+                            <toolkit:IconTintColorBehavior TintColor="#4835c5" />
+                        </Image.Behaviors>
+                    </Image>
+                    <Label Text="{Binding LatestCardio.Distance, StringFormat='{}{0} km'}"
+                           FontAttributes="Bold"
+                           FontSize="28"
+                           VerticalTextAlignment="Center" />
+                </HorizontalStackLayout>
+                <Grid ColumnDefinitions="*,*"
+                      ColumnSpacing="15">
+                    <HorizontalStackLayout Spacing="5" Grid.Column="0">
+                        <Image Source="timer.svg"
+                               WidthRequest="30"
+                               HeightRequest="30">
+                            <Image.Behaviors>
+                                <toolkit:IconTintColorBehavior TintColor="#4835c5" />
+                            </Image.Behaviors>
+                        </Image>
+                        <Label Text="{Binding LatestCardio.Duration, StringFormat='{}{0} min'}"
+                               FontSize="19"
+                               FontAttributes="Bold"
+                               VerticalTextAlignment="Center" />
+                    </HorizontalStackLayout>
+                    <HorizontalStackLayout Spacing="8" Grid.Column="1">
+                        <Image Source="heart.svg"
+                               WidthRequest="30"
+                               HeightRequest="30">
+                            <Image.Behaviors>
+                                <toolkit:IconTintColorBehavior TintColor="#4835c5" />
+                            </Image.Behaviors>
+                        </Image>
+                        <Label Text="{Binding LatestCardio.AvgHeartRate, StringFormat='{0} bpm'}"
+                               FontSize="19"
+                               FontAttributes="Bold"
+                               VerticalTextAlignment="Center" />
+                    </HorizontalStackLayout>
+                </Grid>
+                <HorizontalStackLayout Spacing="8">
+                    <Image Source="calendar.svg"
+                           WidthRequest="30"
+                           HeightRequest="30">
+                        <Image.Behaviors>
+                            <toolkit:IconTintColorBehavior TintColor="#4835c5" />
+                        </Image.Behaviors>
+                    </Image>
+                    <Label Text="{Binding LatestCardio.Date, StringFormat='{0:dd.MM.yyyy}'}"
+                           FontSize="17"
+                           FontAttributes="Bold"
+                           VerticalTextAlignment="Center" />
+                </HorizontalStackLayout>
+            </VerticalStackLayout>
+        </Border>
+    </VerticalStackLayout>
+
+</ContentPage>

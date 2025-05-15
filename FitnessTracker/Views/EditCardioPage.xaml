@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="FitnessTracker.Views.EditCardioPage"
+             Title="Edit cardio"
+             BackgroundColor="{DynamicResource AppBackgroundColor}">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20"
+                             Spacing="25">
+            <Grid ColumnDefinitions="Auto,*"
+                  ColumnSpacing="15">
+                <Image Source="calendar.svg"
+                       WidthRequest="30"
+                       HeightRequest="30"
+                       Grid.Column="0">
+                    <Image.Behaviors>
+                        <toolkit:IconTintColorBehavior TintColor="#4835c5" />
+                    </Image.Behaviors>
+                </Image>
+                <VerticalStackLayout Grid.Column="1">
+                    <Label Text="Date"
+                           FontAttributes="Bold"
+                           FontSize="18" />
+                    <DatePicker Date="{Binding Date}"
+                                FontSize="18" />
+                </VerticalStackLayout>
+            </Grid>
+
+            <Grid ColumnDefinitions="Auto,*"
+                  ColumnSpacing="15">
+                <Image Source="pin.svg"
+                       WidthRequest="30"
+                       HeightRequest="30"
+                       Grid.Column="0">
+                    <Image.Behaviors>
+                        <toolkit:IconTintColorBehavior TintColor="#4835c5" />
+                    </Image.Behaviors>
+                </Image>
+                <VerticalStackLayout Grid.Column="1">
+                    <Label Text="Distance"
+                           FontAttributes="Bold"
+                           FontSize="18" />
+                    <Entry Placeholder="Enter distance (km)"
+                           Text="{Binding Distance}"
+                           FontSize="18"
+                           PlaceholderColor="{DynamicResource InputPlaceholder}" />
+                </VerticalStackLayout>
+            </Grid>
+
+            <Grid ColumnDefinitions="Auto,*"
+                  ColumnSpacing="15">
+                <Image Source="timer.svg"
+                       WidthRequest="30"
+                       HeightRequest="30"
+                       Grid.Column="0">
+                    <Image.Behaviors>
+                        <toolkit:IconTintColorBehavior TintColor="#4835c5" />
+                    </Image.Behaviors>
+                </Image>
+                <VerticalStackLayout Grid.Column="1">
+                    <Label Text="Duration"
+                           FontAttributes="Bold"
+                           FontSize="18" />
+                    <Entry Placeholder="Enter duration (min)"
+                           Text="{Binding Duration}"
+                           FontSize="18"
+                           PlaceholderColor="{DynamicResource InputPlaceholder}" />
+                </VerticalStackLayout>
+            </Grid>
+
+            <Grid ColumnDefinitions="Auto,*"
+                  ColumnSpacing="15">
+                <Image Source="heart.svg"
+                       WidthRequest="30"
+                       HeightRequest="30"
+                       Grid.Column="0">
+                    <Image.Behaviors>
+                        <toolkit:IconTintColorBehavior TintColor="#4835c5" />
+                    </Image.Behaviors>
+                </Image>
+                <VerticalStackLayout Grid.Column="1">
+                    <Label Text="Average HR"
+                           FontAttributes="Bold"
+                           FontSize="18" />
+                    <Entry Placeholder="0"
+                           Text="{Binding AvgHeartRate}"
+                           Keyboard="Numeric"
+                           FontSize="18"
+                           PlaceholderColor="{DynamicResource InputPlaceholder}" />
+                </VerticalStackLayout>
+            </Grid>
+
+            <Button Text="Edit"
+                    Command="{Binding SaveCommand}"
+                    BackgroundColor="#5C4DFF"
+                    TextColor="White"
+                    FontAttributes="Bold"
+                    CornerRadius="15"
+                    HeightRequest="50"
+                    FontSize="19" />
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>

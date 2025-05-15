@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             x:Class="FitnessTracker.Views.EditWorkoutPage"
+             xmlns:viewmodels="clr-namespace:FitnessTracker.ViewModels"
+             Title="Edit workout"
+             BackgroundColor="{DynamicResource AppBackgroundColor}">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20"
+                             Spacing="25">
+            <Grid ColumnDefinitions="Auto,*"
+                  ColumnSpacing="15">
+                <Image Source="calendar.svg"
+                       WidthRequest="30"
+                       HeightRequest="30"
+                       Grid.Column="0">
+                    <Image.Behaviors>
+                        <toolkit:IconTintColorBehavior TintColor="#4835c5" />
+                    </Image.Behaviors>
+                </Image>
+                <VerticalStackLayout Grid.Column="1">
+                    <Label Text="Date"
+                           FontAttributes="Bold"
+                           FontSize="18" />
+                    <DatePicker Date="{Binding Date}"
+                                FontSize="18" />
+                </VerticalStackLayout>
+            </Grid>
+
+            <Grid ColumnDefinitions="Auto,*"
+                  ColumnSpacing="15">
+                <Image Source="barbell.svg"
+                       WidthRequest="30"
+                       HeightRequest="30"
+                       Grid.Column="0">
+                    <Image.Behaviors>
+                        <toolkit:IconTintColorBehavior TintColor="#4835c5" />
+                    </Image.Behaviors>
+                </Image>
+                <VerticalStackLayout Grid.Column="1">
+                    <Label Text="Exercise"
+                           FontAttributes="Bold"
+                           FontSize="18" />
+                    <Picker Title="Select Exercise"
+                            ItemsSource="{Binding Exercises}"
+                            SelectedItem="{Binding Exercise}"
+                            FontSize="18" />
+                </VerticalStackLayout>
+            </Grid>
+
+            <Grid ColumnDefinitions="Auto,*,*"
+                  ColumnSpacing="15">
+                <Image Source="repeat.svg"
+                       WidthRequest="30"
+                       HeightRequest="30"
+                       Grid.Column="0">
+                    <Image.Behaviors>
+                        <toolkit:IconTintColorBehavior TintColor="#4835c5" />
+                    </Image.Behaviors>
+                </Image>
+                <VerticalStackLayout Grid.Column="1">
+                    <Label Text="Reps"
+                           FontAttributes="Bold"
+                           FontSize="18" />
+                    <Entry Placeholder="No. of reps"
+                           Text="{Binding Reps}"
+                           FontSize="18"
+                           PlaceholderColor="{DynamicResource InputPlaceholder}" />
+                </VerticalStackLayout>
+                <VerticalStackLayout Grid.Column="2">
+                    <Label Text="Sets"
+                           FontAttributes="Bold"
+                           FontSize="18" />
+                    <Entry Placeholder="No. of sets"
+                           Text="{Binding Sets}"
+                           FontSize="18"
+                           PlaceholderColor="{DynamicResource InputPlaceholder}" />
+                </VerticalStackLayout>
+            </Grid>
+
+            <Button Text="Update"
+                    Command="{Binding SaveCommand}"
+                    BackgroundColor="#5C4DFF"
+                    TextColor="White"
+                    FontAttributes="Bold"
+                    CornerRadius="15"
+                    HeightRequest="50"
+                    FontSize="19" />
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>
