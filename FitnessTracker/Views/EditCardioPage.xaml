@@ -45,7 +45,8 @@
                     <Entry Placeholder="Enter distance (km)"
                            Text="{Binding Distance}"
                            FontSize="18"
-                           PlaceholderColor="{DynamicResource InputPlaceholder}" />
+                           PlaceholderColor="{DynamicResource InputPlaceholder}"
+                           Keyboard="Numeric" />
                 </VerticalStackLayout>
             </Grid>
 
@@ -66,7 +67,8 @@
                     <Entry Placeholder="Enter duration (min)"
                            Text="{Binding Duration}"
                            FontSize="18"
-                           PlaceholderColor="{DynamicResource InputPlaceholder}" />
+                           PlaceholderColor="{DynamicResource InputPlaceholder}"
+                           Keyboard="Numeric" />
                 </VerticalStackLayout>
             </Grid>
 

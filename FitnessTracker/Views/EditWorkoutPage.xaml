@@ -67,7 +67,8 @@
                     <Entry Placeholder="No. of reps"
                            Text="{Binding Reps}"
                            FontSize="18"
-                           PlaceholderColor="{DynamicResource InputPlaceholder}" />
+                           PlaceholderColor="{DynamicResource InputPlaceholder}"
+                           Keyboard="Numeric" />
                 </VerticalStackLayout>
                 <VerticalStackLayout Grid.Column="2">
                     <Label Text="Sets"
@@ -76,7 +77,8 @@
                     <Entry Placeholder="No. of sets"
                            Text="{Binding Sets}"
                            FontSize="18"
-                           PlaceholderColor="{DynamicResource InputPlaceholder}" />
+                           PlaceholderColor="{DynamicResource InputPlaceholder}"
+                           Keyboard="Numeric" />
                 </VerticalStackLayout>
             </Grid>
 
