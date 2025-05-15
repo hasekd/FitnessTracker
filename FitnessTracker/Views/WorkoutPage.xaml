@@ -3,156 +3,191 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              xmlns:models="clr-namespace:FitnessTracker.Models"
+             xmlns:viewModels="clr-namespace:FitnessTracker.ViewModels"
              x:Class="FitnessTracker.Views.WorkoutPage"
              x:Name="PageRef"
              Title="WorkoutPage"
+             x:DataType="viewModels:WorkoutViewModel"
              BackgroundColor="{DynamicResource AppBackgroundColor}">
 
-    <VerticalStackLayout Padding="20"
-                         Spacing="16">
+    <ScrollView>
+        <VerticalStackLayout Padding="20"
+                             Spacing="16">
 
-        <Button Text="Add"
-                Margin="10,10,10,10"
-                CornerRadius="12"
-                BackgroundColor="#4835c5"
-                TextColor="White"
-                FontSize="20"
-                HeightRequest="50"
-                FontAttributes="Bold"
-                Command="{Binding AddCommand}" />
+            <Button Text="Add"
+                    Margin="10,10,10,10"
+                    CornerRadius="12"
+                    BackgroundColor="#4835c5"
+                    TextColor="White"
+                    FontSize="20"
+                    HeightRequest="50"
+                    FontAttributes="Bold"
+                    Command="{Binding AddCommand}" />
 
-        <Label Text="Filter by exercise:"
-               FontAttributes="Bold" />
-        <Picker Title="Select Exercise"
-                ItemsSource="{Binding Exercises}"
-                SelectedItem="{Binding SelectedExerciseFilter}" />
+            <Grid ColumnDefinitions="*,*"
+                  ColumnSpacing="20">
+                <VerticalStackLayout Grid.Column="0">
+                    <Label Text="Filter by exercise:"
+                           FontAttributes="Bold"
+                           FontSize="15" />
+                    <Picker Title="Select Exercise"
+                            ItemsSource="{Binding Exercises}"
+                            SelectedItem="{Binding SelectedExerciseFilter}" />
+                </VerticalStackLayout>
+                <HorizontalStackLayout Spacing="10"
+                                       Grid.Column="1">
+                    <VerticalStackLayout>
+                        <Label Text="From:"
+                               FontAttributes="Bold"
+                               FontSize="15" />
+                        <DatePicker Date="{Binding FromDate}" />
+                    </VerticalStackLayout>
 
-        <CollectionView ItemsSource="{Binding FilteredWorkouts}">
-            <CollectionView.ItemTemplate>
-                <DataTemplate x:DataType="models:Workout">
-                    <Border StrokeShape="RoundRectangle 10"
-                            Margin="8">
-                        <VerticalStackLayout Spacing="15"
-                                             Padding="20"
-                                             BackgroundColor="White">
+                    <VerticalStackLayout>
+                        <Label Text="To:"
+                               FontAttributes="Bold"
+                               FontSize="15" />
+                        <DatePicker Date="{Binding ToDate}" />
+                    </VerticalStackLayout>
+                </HorizontalStackLayout>
+            </Grid>
 
-                            <HorizontalStackLayout Spacing="15"
-                                                   Margin="0,0,0,5">
-                                <Image Source="barbell.svg"
-                                       WidthRequest="40"
-                                       HeightRequest="40">
-                                    <Image.Behaviors>
-                                        <toolkit:IconTintColorBehavior TintColor="#4835c5" />
-                                    </Image.Behaviors>
-                                </Image>
-                                <Label Text="{Binding Exercise}"
-                                       FontAttributes="Bold"
-                                       FontSize="28"
-                                       VerticalTextAlignment="Center" />
-                            </HorizontalStackLayout>
+            <HorizontalStackLayout>
+                <Button Text="Clear Filters"
+                        Command="{Binding ClearFiltersCommand}"
+                        BackgroundColor="#5C4DFF"
+                        TextColor="White"
+                        CornerRadius="10" />
+            </HorizontalStackLayout>
 
-                            <Grid ColumnDefinitions="Auto,*,*"
-                                  ColumnSpacing="15">
-                                <Image Source="repeat.svg"
-                                       WidthRequest="30"
-                                       HeightRequest="30"
-                                       Grid.Column="0">
-                                    <Image.Behaviors>
-                                        <toolkit:IconTintColorBehavior TintColor="#4835c5" />
-                                    </Image.Behaviors>
-                                </Image>
-                                <VerticalStackLayout Grid.Column="1">
-                                    <Label Text="Reps"
+
+            <CollectionView ItemsSource="{Binding FilteredWorkouts}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="models:Workout">
+                        <Border StrokeShape="RoundRectangle 10"
+                                Margin="8">
+                            <VerticalStackLayout Spacing="12"
+                                                 Padding="20"
+                                                 BackgroundColor="White">
+
+                                <HorizontalStackLayout Spacing="15"
+                                                       Margin="0,0,0,5">
+                                    <Image Source="barbell.svg"
+                                           WidthRequest="40"
+                                           HeightRequest="40">
+                                        <Image.Behaviors>
+                                            <toolkit:IconTintColorBehavior TintColor="#4835c5" />
+                                        </Image.Behaviors>
+                                    </Image>
+                                    <Label Text="{Binding Exercise}"
                                            FontAttributes="Bold"
-                                           FontSize="18" />
-                                    <Label Text="{Binding Reps}"
+                                           FontSize="25"
+                                           VerticalTextAlignment="Center" />
+                                </HorizontalStackLayout>
+
+                                <Grid ColumnDefinitions="Auto,*,*"
+                                      ColumnSpacing="15">
+                                    <Image Source="repeat.svg"
+                                           WidthRequest="30"
+                                           HeightRequest="30"
+                                           Grid.Column="0">
+                                        <Image.Behaviors>
+                                            <toolkit:IconTintColorBehavior TintColor="#4835c5" />
+                                        </Image.Behaviors>
+                                    </Image>
+                                    <VerticalStackLayout Grid.Column="1">
+                                        <Label Text="Reps"
+                                               FontAttributes="Bold"
+                                               FontSize="18" />
+                                        <Label Text="{Binding Reps}"
+                                               FontSize="19"
+                                               FontAttributes="Bold"
+                                               VerticalTextAlignment="Center" />
+                                    </VerticalStackLayout>
+                                    <VerticalStackLayout Grid.Column="2">
+                                        <Label Text="Sets"
+                                               FontAttributes="Bold"
+                                               FontSize="18" />
+                                        <Label Text="{Binding Sets}"
+                                               FontSize="19"
+                                               FontAttributes="Bold"
+                                               VerticalTextAlignment="Center" />
+                                    </VerticalStackLayout>
+                                </Grid>
+
+                                <HorizontalStackLayout Spacing="8">
+                                    <Image Source="calendar.svg"
+                                           WidthRequest="30"
+                                           HeightRequest="30">
+                                        <Image.Behaviors>
+                                            <toolkit:IconTintColorBehavior TintColor="#4835c5" />
+                                        </Image.Behaviors>
+                                    </Image>
+                                    <Label Text="{Binding Date, StringFormat='{0:dd.MM.yyyy}'}"
                                            FontSize="19"
                                            FontAttributes="Bold"
                                            VerticalTextAlignment="Center" />
-                                </VerticalStackLayout>
-                                <VerticalStackLayout Grid.Column="2">
-                                    <Label Text="Sets"
-                                           FontAttributes="Bold"
-                                           FontSize="18" />
-                                    <Label Text="{Binding Sets}"
-                                           FontSize="19"
-                                           FontAttributes="Bold"
-                                           VerticalTextAlignment="Center" />
-                                </VerticalStackLayout>
-                            </Grid>
+                                </HorizontalStackLayout>
 
-                            <HorizontalStackLayout Spacing="8">
-                                <Image Source="calendar.svg"
-                                       WidthRequest="30"
-                                       HeightRequest="30">
-                                    <Image.Behaviors>
-                                        <toolkit:IconTintColorBehavior TintColor="#4835c5" />
-                                    </Image.Behaviors>
-                                </Image>
-                                <Label Text="{Binding Date, StringFormat='{0:dd.MM.yyyy}'}"
-                                       FontSize="19"
-                                       FontAttributes="Bold"
-                                       VerticalTextAlignment="Center" />
-                            </HorizontalStackLayout>
+                                <Grid ColumnDefinitions="*, *"
+                                      ColumnSpacing="10"
+                                      Margin="0,10,0,0">
+                                    <Border Padding="10"
+                                            StrokeShape="RoundRectangle 10"
+                                            BackgroundColor="#5C4DFF"
+                                            Grid.Column="0">
+                                        <Border.GestureRecognizers>
+                                            <TapGestureRecognizer Command="{Binding Source={x:Reference PageRef}, Path=BindingContext.EditCommand}"
+                                                                  CommandParameter="{Binding .}" />
+                                        </Border.GestureRecognizers>
+                                        <HorizontalStackLayout Spacing="5"
+                                                               HorizontalOptions="Center">
+                                            <Image Source="pencil.svg"
+                                                   WidthRequest="25"
+                                                   HeightRequest="25">
+                                                <Image.Behaviors>
+                                                    <toolkit:IconTintColorBehavior TintColor="#ffffff" />
+                                                </Image.Behaviors>
+                                            </Image>
+                                            <Label Text="Edit"
+                                                   TextColor="White"
+                                                   FontAttributes="Bold"
+                                                   VerticalTextAlignment="Center"
+                                                   FontSize="19" />
+                                        </HorizontalStackLayout>
+                                    </Border>
+                                    <Border Padding="10"
+                                            StrokeShape="RoundRectangle 10"
+                                            BackgroundColor="#d26770"
+                                            Grid.Column="1">
+                                        <Border.GestureRecognizers>
+                                            <TapGestureRecognizer Command="{Binding Source={x:Reference PageRef}, Path=BindingContext.DeleteCommand}"
+                                                                  CommandParameter="{Binding .}" />
+                                        </Border.GestureRecognizers>
+                                        <HorizontalStackLayout Spacing="5"
+                                                               HorizontalOptions="Center">
+                                            <Image Source="trash.svg"
+                                                   WidthRequest="25"
+                                                   HeightRequest="25">
+                                                <Image.Behaviors>
+                                                    <toolkit:IconTintColorBehavior TintColor="#ffffff" />
+                                                </Image.Behaviors>
+                                            </Image>
+                                            <Label Text="Delete"
+                                                   TextColor="White"
+                                                   FontAttributes="Bold"
+                                                   VerticalTextAlignment="Center"
+                                                   FontSize="19" />
+                                        </HorizontalStackLayout>
+                                    </Border>
+                                </Grid>
 
-                            <Grid ColumnDefinitions="*, *"
-                                  ColumnSpacing="10"
-                                  Margin="0,10,0,0">
-                                <Border Padding="10"
-                                        StrokeShape="RoundRectangle 10"
-                                        BackgroundColor="#5C4DFF"
-                                        Grid.Column="0">
-                                    <Border.GestureRecognizers>
-                                        <TapGestureRecognizer Command="{Binding Source={x:Reference PageRef}, Path=BindingContext.EditCommand}"
-                                                              CommandParameter="{Binding .}" />
-                                    </Border.GestureRecognizers>
-                                    <HorizontalStackLayout Spacing="5"
-                                                           HorizontalOptions="Center">
-                                        <Image Source="pencil.svg"
-                                               WidthRequest="25"
-                                               HeightRequest="25">
-                                            <Image.Behaviors>
-                                                <toolkit:IconTintColorBehavior TintColor="#ffffff" />
-                                            </Image.Behaviors>
-                                        </Image>
-                                        <Label Text="Edit"
-                                               TextColor="White"
-                                               FontAttributes="Bold"
-                                               VerticalTextAlignment="Center"
-                                               FontSize="19" />
-                                    </HorizontalStackLayout>
-                                </Border>
-                                <Border Padding="10"
-                                        StrokeShape="RoundRectangle 10"
-                                        BackgroundColor="#d26770"
-                                        Grid.Column="1">
-                                    <Border.GestureRecognizers>
-                                        <TapGestureRecognizer Command="{Binding Source={x:Reference PageRef}, Path=BindingContext.DeleteCommand}"
-                                                              CommandParameter="{Binding .}" />
-                                    </Border.GestureRecognizers>
-                                    <HorizontalStackLayout Spacing="5"
-                                                           HorizontalOptions="Center">
-                                        <Image Source="trash.svg"
-                                               WidthRequest="25"
-                                               HeightRequest="25">
-                                            <Image.Behaviors>
-                                                <toolkit:IconTintColorBehavior TintColor="#ffffff" />
-                                            </Image.Behaviors>
-                                        </Image>
-                                        <Label Text="Delete"
-                                               TextColor="White"
-                                               FontAttributes="Bold"
-                                               VerticalTextAlignment="Center"
-                                               FontSize="19" />
-                                    </HorizontalStackLayout>
-                                </Border>
-                            </Grid>
-
-                        </VerticalStackLayout>
-                    </Border>
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-        </CollectionView>
-    </VerticalStackLayout>
+                            </VerticalStackLayout>
+                        </Border>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </VerticalStackLayout>
+    </ScrollView>
 
 </ContentPage>

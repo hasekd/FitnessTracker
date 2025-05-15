@@ -6,7 +6,6 @@ using CommunityToolkit.Mvvm.Messaging;
 using FitnessTracker.Messages;
 using FitnessTracker.Models;
 using FitnessTracker.Services;
-using Java.Util;
 using System.Collections.ObjectModel;
 
 namespace FitnessTracker.ViewModels

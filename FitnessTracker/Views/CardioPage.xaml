@@ -3,142 +3,172 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              xmlns:models="clr-namespace:FitnessTracker.Models"
+             xmlns:viewModels="clr-namespace:FitnessTracker.ViewModels"
+             xmlns:syncfusion="clr-namespace:Syncfusion.Maui.Charts;assembly=Syncfusion.Maui.Charts"
              x:Class="FitnessTracker.Views.CardioPage"
              x:Name="PageRef"
              Title="CardioPage"
+             x:DataType="viewModels:CardioViewModel"
              BackgroundColor="{DynamicResource AppBackgroundColor}">
 
-    <VerticalStackLayout Padding="20"
-                         Spacing="16">
+    <ScrollView>
+        <VerticalStackLayout Padding="20"
+                             Spacing="16">
 
-        <Button Text="Add"
-                Margin="10,10,10,10"
-                CornerRadius="12"
-                BackgroundColor="#4835c5"
-                TextColor="White"
-                FontSize="20"
-                HeightRequest="50"
-                FontAttributes="Bold"
-                Command="{Binding AddCommand}" />
+            <Button Text="Add"
+                    Margin="10,10,10,10"
+                    CornerRadius="12"
+                    BackgroundColor="#4835c5"
+                    TextColor="White"
+                    FontSize="20"
+                    HeightRequest="50"
+                    FontAttributes="Bold"
+                    Command="{Binding AddCommand}" />
 
-        <CollectionView ItemsSource="{Binding CardioSessions}">
-            <CollectionView.ItemTemplate>
-                <DataTemplate x:DataType="models:Cardio">
-                    <Border StrokeShape="RoundRectangle 10"
-                            Margin="8">
-                        <VerticalStackLayout Spacing="12"
-                                             Padding="20"
-                                             BackgroundColor="White">
-                            <HorizontalStackLayout Spacing="5"
-                                                   Margin="0,0,0,5">
-                                <Image Source="pin.svg"
-                                       WidthRequest="40"
-                                       HeightRequest="40">
-                                    <Image.Behaviors>
-                                        <toolkit:IconTintColorBehavior TintColor="#4835c5" />
-                                    </Image.Behaviors>
-                                </Image>
-                                <Label Text="{Binding Distance, StringFormat='{}{0} km'}"
-                                       FontAttributes="Bold"
-                                       FontSize="28"
-                                       VerticalTextAlignment="Center" />
-                            </HorizontalStackLayout>
-                            <HorizontalStackLayout Spacing="5">
-                                <Image Source="timer.svg"
-                                       WidthRequest="30"
-                                       HeightRequest="30">
-                                    <Image.Behaviors>
-                                        <toolkit:IconTintColorBehavior TintColor="#4835c5" />
-                                    </Image.Behaviors>
-                                </Image>
-                                <Label Text="{Binding Duration, StringFormat='{}{0} min'}"
-                                       FontSize="19"
-                                       FontAttributes="Bold"
-                                       VerticalTextAlignment="Center" />
-                            </HorizontalStackLayout>
-                            <HorizontalStackLayout Spacing="8">
-                                <Image Source="heart.svg"
-                                       WidthRequest="30"
-                                       HeightRequest="30">
-                                    <Image.Behaviors>
-                                        <toolkit:IconTintColorBehavior TintColor="#4835c5" />
-                                    </Image.Behaviors>
-                                </Image>
-                                <Label Text="{Binding AvgHeartRate, StringFormat='{0} bpm'}"
-                                       FontSize="19"
-                                       FontAttributes="Bold"
-                                       VerticalTextAlignment="Center" />
-                            </HorizontalStackLayout>
-                            <HorizontalStackLayout Spacing="8">
-                                <Image Source="calendar.svg"
-                                       WidthRequest="30"
-                                       HeightRequest="30">
-                                    <Image.Behaviors>
-                                        <toolkit:IconTintColorBehavior TintColor="#4835c5" />
-                                    </Image.Behaviors>
-                                </Image>
-                                <Label Text="{Binding Date, StringFormat='{0:dd.MM.yyyy}'}"
-                                       FontSize="19"
-                                       FontAttributes="Bold"
-                                       VerticalTextAlignment="Center" />
-                            </HorizontalStackLayout>
-                            <Grid ColumnDefinitions="*, *"
-                                  ColumnSpacing="10"
-                                  Margin="0,10,0,0">
-                                <Border Padding="10"
-                                        StrokeShape="RoundRectangle 10"
-                                        BackgroundColor="#5C4DFF"
-                                        Grid.Column="0">
-                                    <Border.GestureRecognizers>
-                                        <TapGestureRecognizer Command="{Binding Source={x:Reference PageRef}, Path=BindingContext.EditCommand}"
-                                                              CommandParameter="{Binding .}" />
-                                    </Border.GestureRecognizers>
-                                    <HorizontalStackLayout Spacing="5"
-                                                           HorizontalOptions="Center">
-                                        <Image Source="pencil.svg"
-                                               WidthRequest="25"
-                                               HeightRequest="25">
-                                            <Image.Behaviors>
-                                                <toolkit:IconTintColorBehavior TintColor="#ffffff" />
-                                            </Image.Behaviors>
-                                        </Image>
-                                        <Label Text="Edit"
-                                               TextColor="White"
-                                               FontAttributes="Bold"
-                                               VerticalTextAlignment="Center"
-                                               FontSize="19" />
-                                    </HorizontalStackLayout>
-                                </Border>
-                                <Border Padding="10"
-                                        StrokeShape="RoundRectangle 10"
-                                        BackgroundColor="#d26770"
-                                        Grid.Column="1">
-                                    <Border.GestureRecognizers>
-                                        <TapGestureRecognizer Command="{Binding Source={x:Reference PageRef}, Path=BindingContext.DeleteCommand}"
-                                                              CommandParameter="{Binding .}" />
-                                    </Border.GestureRecognizers>
-                                    <HorizontalStackLayout Spacing="5"
-                                                           HorizontalOptions="Center">
-                                        <Image Source="trash.svg"
-                                               WidthRequest="25"
-                                               HeightRequest="25">
-                                            <Image.Behaviors>
-                                                <toolkit:IconTintColorBehavior TintColor="#ffffff" />
-                                            </Image.Behaviors>
-                                        </Image>
-                                        <Label Text="Delete"
-                                               TextColor="White"
-                                               FontAttributes="Bold"
-                                               VerticalTextAlignment="Center"
-                                               FontSize="17" />
-                                    </HorizontalStackLayout>
-                                </Border>
-                            </Grid>
-                        </VerticalStackLayout>
-                    </Border>
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-        </CollectionView>
-    </VerticalStackLayout>
+            <Grid ColumnDefinitions="*,*"
+                  ColumnSpacing="20">
+                <VerticalStackLayout Grid.Column="0">
+                    <Label Text="From:"
+                           FontAttributes="Bold"
+                           FontSize="15" />
+                    <DatePicker Date="{Binding FromDate}" />
+                </VerticalStackLayout>
+
+                <VerticalStackLayout Grid.Column="1">
+                    <Label Text="To:"
+                           FontAttributes="Bold"
+                           FontSize="15" />
+                    <DatePicker Date="{Binding ToDate}" />
+                </VerticalStackLayout>
+            </Grid>
+
+            <HorizontalStackLayout>
+                <Button Text="Clear Filters"
+                        Command="{Binding ClearFiltersCommand}"
+                        BackgroundColor="#5C4DFF"
+                        TextColor="White"
+                        CornerRadius="10" />
+            </HorizontalStackLayout>
+
+            <CollectionView ItemsSource="{Binding FilteredCardioSessions}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="models:Cardio">
+                        <Border StrokeShape="RoundRectangle 10"
+                                Margin="8">
+                            <VerticalStackLayout Spacing="12"
+                                                 Padding="20"
+                                                 BackgroundColor="White">
+                                <HorizontalStackLayout Spacing="5"
+                                                       Margin="0,0,0,5">
+                                    <Image Source="pin.svg"
+                                           WidthRequest="40"
+                                           HeightRequest="40">
+                                        <Image.Behaviors>
+                                            <toolkit:IconTintColorBehavior TintColor="#4835c5" />
+                                        </Image.Behaviors>
+                                    </Image>
+                                    <Label Text="{Binding Distance, StringFormat='{}{0} km'}"
+                                           FontAttributes="Bold"
+                                           FontSize="28"
+                                           VerticalTextAlignment="Center" />
+                                </HorizontalStackLayout>
+                                <HorizontalStackLayout Spacing="5">
+                                    <Image Source="timer.svg"
+                                           WidthRequest="30"
+                                           HeightRequest="30">
+                                        <Image.Behaviors>
+                                            <toolkit:IconTintColorBehavior TintColor="#4835c5" />
+                                        </Image.Behaviors>
+                                    </Image>
+                                    <Label Text="{Binding Duration, StringFormat='{}{0} min'}"
+                                           FontSize="19"
+                                           FontAttributes="Bold"
+                                           VerticalTextAlignment="Center" />
+                                </HorizontalStackLayout>
+                                <HorizontalStackLayout Spacing="8">
+                                    <Image Source="heart.svg"
+                                           WidthRequest="30"
+                                           HeightRequest="30">
+                                        <Image.Behaviors>
+                                            <toolkit:IconTintColorBehavior TintColor="#4835c5" />
+                                        </Image.Behaviors>
+                                    </Image>
+                                    <Label Text="{Binding AvgHeartRate, StringFormat='{0} bpm'}"
+                                           FontSize="19"
+                                           FontAttributes="Bold"
+                                           VerticalTextAlignment="Center" />
+                                </HorizontalStackLayout>
+                                <HorizontalStackLayout Spacing="8">
+                                    <Image Source="calendar.svg"
+                                           WidthRequest="30"
+                                           HeightRequest="30">
+                                        <Image.Behaviors>
+                                            <toolkit:IconTintColorBehavior TintColor="#4835c5" />
+                                        </Image.Behaviors>
+                                    </Image>
+                                    <Label Text="{Binding Date, StringFormat='{0:dd.MM.yyyy}'}"
+                                           FontSize="19"
+                                           FontAttributes="Bold"
+                                           VerticalTextAlignment="Center" />
+                                </HorizontalStackLayout>
+                                <Grid ColumnDefinitions="*, *"
+                                      ColumnSpacing="10"
+                                      Margin="0,10,0,0">
+                                    <Border Padding="10"
+                                            StrokeShape="RoundRectangle 10"
+                                            BackgroundColor="#5C4DFF"
+                                            Grid.Column="0">
+                                        <Border.GestureRecognizers>
+                                            <TapGestureRecognizer Command="{Binding Source={x:Reference PageRef}, Path=BindingContext.EditCommand}"
+                                                                  CommandParameter="{Binding .}" />
+                                        </Border.GestureRecognizers>
+                                        <HorizontalStackLayout Spacing="5"
+                                                               HorizontalOptions="Center">
+                                            <Image Source="pencil.svg"
+                                                   WidthRequest="25"
+                                                   HeightRequest="25">
+                                                <Image.Behaviors>
+                                                    <toolkit:IconTintColorBehavior TintColor="#ffffff" />
+                                                </Image.Behaviors>
+                                            </Image>
+                                            <Label Text="Edit"
+                                                   TextColor="White"
+                                                   FontAttributes="Bold"
+                                                   VerticalTextAlignment="Center"
+                                                   FontSize="19" />
+                                        </HorizontalStackLayout>
+                                    </Border>
+                                    <Border Padding="10"
+                                            StrokeShape="RoundRectangle 10"
+                                            BackgroundColor="#d26770"
+                                            Grid.Column="1">
+                                        <Border.GestureRecognizers>
+                                            <TapGestureRecognizer Command="{Binding Source={x:Reference PageRef}, Path=BindingContext.DeleteCommand}"
+                                                                  CommandParameter="{Binding .}" />
+                                        </Border.GestureRecognizers>
+                                        <HorizontalStackLayout Spacing="5"
+                                                               HorizontalOptions="Center">
+                                            <Image Source="trash.svg"
+                                                   WidthRequest="25"
+                                                   HeightRequest="25">
+                                                <Image.Behaviors>
+                                                    <toolkit:IconTintColorBehavior TintColor="#ffffff" />
+                                                </Image.Behaviors>
+                                            </Image>
+                                            <Label Text="Delete"
+                                                   TextColor="White"
+                                                   FontAttributes="Bold"
+                                                   VerticalTextAlignment="Center"
+                                                   FontSize="17" />
+                                        </HorizontalStackLayout>
+                                    </Border>
+                                </Grid>
+                            </VerticalStackLayout>
+                        </Border>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </VerticalStackLayout>
+    </ScrollView>
 
 </ContentPage>

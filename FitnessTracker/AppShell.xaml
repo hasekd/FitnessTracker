@@ -5,8 +5,8 @@
        xmlns:views="clr-namespace:FitnessTracker.Views"
        Shell.FlyoutBehavior="Flyout"
        Title="FitnessTracker"
-       Shell.TabBarForegroundColor="{DynamicResource IconColor}">
-
+       Shell.TabBarForegroundColor="{DynamicResource IconColor}"
+       Shell.TabBarTitleColor="{DynamicResource IconColor}">
     <TabBar>
         <ShellContent Icon="house.svg"
                       Title="Home"
@@ -26,5 +26,4 @@
                       Route="CalisthenicsPage"
                       Shell.NavBarIsVisible="False" />
     </TabBar>
-
 </Shell>

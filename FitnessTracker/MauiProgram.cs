@@ -3,6 +3,7 @@ using FitnessTracker.Services;
 using FitnessTracker.ViewModels;
 using FitnessTracker.Views;
 using CommunityToolkit.Maui;
+using Syncfusion.Maui.Core.Hosting;
 
 namespace FitnessTracker;
 
@@ -15,6 +16,7 @@ public static class MauiProgram
 		builder
 			.UseMauiApp<App>()
             .UseMauiCommunityToolkit()
+            .ConfigureSyncfusionCore()
             .ConfigureFonts(fonts =>
 			{
                 fonts.AddFont("InterVariable.ttf", "Inter");

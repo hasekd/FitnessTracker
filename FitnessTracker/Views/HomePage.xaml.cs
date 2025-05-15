@@ -9,13 +9,6 @@ namespace FitnessTracker.Views
             InitializeComponent();
             BindingContext = viewModel;
         }
-
-        protected override void OnAppearing()
-        {
-            base.OnAppearing();
-            (BindingContext as HomeViewModel)?.LoadLatest();
-        }
-
     }
 
 }

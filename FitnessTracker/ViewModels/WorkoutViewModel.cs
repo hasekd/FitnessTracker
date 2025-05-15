@@ -34,9 +34,14 @@ namespace FitnessTracker.ViewModels
 
         [ObservableProperty]
         private string selectedExerciseFilter;
-
         [ObservableProperty]
         private ObservableCollection<Workout> filteredWorkouts;
+        [ObservableProperty]
+        private DateTime? fromDate;
+        [ObservableProperty]
+        private DateTime? toDate;
+
+        private bool _suppressDateValidation = false;
 
         public WorkoutViewModel(DatabaseService databaseService)
         {
@@ -54,7 +59,7 @@ namespace FitnessTracker.ViewModels
                 .OrderByDescending(w => w.Date)
                 .ToList();
             Workouts = new ObservableCollection<Workout>(filtered);
-            ApplyExerciseFilter();
+            ApplyFilter();
         }
 
         public async void Receive(WorkoutChangedMessage message)
@@ -85,25 +90,115 @@ namespace FitnessTracker.ViewModels
             if (!confirm) return;
 
             await _databaseService.DeleteWorkoutAsync(workout);
+            WeakReferenceMessenger.Default.Send(new WorkoutChangedMessage());
             await Toast.Make("Workout deleted.", ToastDuration.Short).Show();
             await LoadWorkouts();
         }
 
         partial void OnSelectedExerciseFilterChanged(string value)
         {
-            ApplyExerciseFilter();
+            ApplyFilter();
         }
 
-        private void ApplyExerciseFilter()
+        private void ApplyFilter()
         {
-            if (string.IsNullOrWhiteSpace(SelectedExerciseFilter) || SelectedExerciseFilter == "All")
+            var filtered = Workouts.AsEnumerable();
+
+            if (!string.IsNullOrWhiteSpace(SelectedExerciseFilter) && SelectedExerciseFilter != "All")
             {
-                FilteredWorkouts = [.. Workouts];
+                filtered = filtered.Where(w => w.Exercise == SelectedExerciseFilter);
+            }
+
+            if (FromDate != null)
+            {
+                filtered = filtered.Where(w => w.Date >= FromDate.Value);
+            }
+
+            if (ToDate != null)
+            {
+                filtered = filtered.Where(w => w.Date <= ToDate.Value);
+            }
+
+            FilteredWorkouts = new ObservableCollection<Workout>(filtered);
+        }
+
+
+        partial void OnFromDateChanged(DateTime? value)
+        {
+            if (_suppressDateValidation)
+                return;
+
+            if (FromDate == null && ToDate != null)
+            {
+                _suppressDateValidation = true;
+                FromDate = ToDate.Value.AddDays(-1);
+                _suppressDateValidation = false;
+                return;
+            }
+
+            if (FromDate != null && ToDate != null && FromDate > ToDate)
+            {
+                _suppressDateValidation = true;
+                ToDate = FromDate;
+                _suppressDateValidation = false;
+
+                Toast.Make("Start date cannot be after end date.", ToastDuration.Short).Show();
+            }
+
+            ApplyFilter();
+
+        }
+
+        partial void OnToDateChanged(DateTime? value)
+        {
+            if (_suppressDateValidation)
+                return;
+
+            if (ToDate == null && FromDate != null)
+            {
+                _suppressDateValidation = true;
+                ToDate = FromDate.Value.AddDays(1);
+                _suppressDateValidation = false;
+                return;
+            }
+
+            if (FromDate != null && ToDate != null && ToDate < FromDate)
+            {
+                _suppressDateValidation = true;
+                ToDate = FromDate;
+                _suppressDateValidation = false;
+
+                Toast.Make("End date cannot be before start date.", ToastDuration.Short).Show();
+            }
+
+            ApplyFilter();
+
+        }
+
+        [RelayCommand]
+        private void ClearFilters()
+        {
+            _suppressDateValidation = true;
+
+            SelectedExerciseFilter = "All";
+
+            if (Workouts == null || Workouts.Count == 0)
+            {
+                FromDate = null;
+                ToDate = null;
             }
             else
             {
-                FilteredWorkouts = [.. Workouts.Where(w => w.Exercise == SelectedExerciseFilter)];
+                var minDate = Workouts.Min(w => w.Date);
+                var maxDate = Workouts.Max(w => w.Date);
+
+                FromDate = minDate.Date;
+                ToDate = maxDate.Date;
             }
+
+            _suppressDateValidation = false;
+
+            ApplyFilter();
         }
 
     }
